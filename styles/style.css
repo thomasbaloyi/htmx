@@ -1,0 +1,15 @@
+html, body {
+    background-color: antiquewhite;
+}
+
+button {
+    border: none;
+    min-width: 5rem;
+    min-height: 2rem;
+    background-color: white;
+}
+
+button:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
