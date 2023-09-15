@@ -6,7 +6,17 @@ import (
 	"net/http"
 )
 
-func root(next http.HandlerFunc) http.HandlerFunc {
+func main() {
+
+	http.HandleFunc("/add", corsHandler(add))
+	http.HandleFunc("/edit", corsHandler(edit))
+	http.HandleFunc("/delete", corsHandler(delete))
+
+	log.Fatal(http.ListenAndServe(":8080", nil))
+
+}
+
+func corsHandler(next http.HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -20,16 +30,6 @@ func root(next http.HandlerFunc) http.HandlerFunc {
 
 		next.ServeHTTP(w, r)
 	})
-}
-
-func main() {
-
-	http.HandleFunc("/add", root(add))
-	http.HandleFunc("/edit", root(edit))
-	http.HandleFunc("/delete", root(delete))
-
-	log.Fatal(http.ListenAndServe(":8080", nil))
-
 }
 
 func add(w http.ResponseWriter, req *http.Request) {
