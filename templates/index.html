@@ -11,14 +11,15 @@
     <title>HTMX - Learn</title>
 </head>
 
-<body>
-    <menu>
-        <button hx-get="http://localhost:8080/add" hx-target="#content" hx-swap="innerHTML">Add</button>
-        <button hx-get="http://localhost:8080/edit" hx-target="#content" hx-swap="innerHTML">Edit</button>
-        <button hx-get="http://localhost:8080/delete" hx-target="#content" hx-swap="innerHTML">Delete</button>
-    </menu>
-    
-    <section id="content"></section>
+<body>    
+    <section id="content">
+        <h3>What do you want to do?</h3>
+        <form hx-post="http://localhost:8080/add" hx-target="#tasks" hx-swap="innerHTML">
+            <input type="text" name="task" id="">
+            <button type="submit">Add</button>
+        </form>
+    </section>
+    <section id="tasks"></section>
 </body>
 
 </html>

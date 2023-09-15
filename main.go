@@ -2,15 +2,17 @@ package main
 
 import (
 	"html/template"
+	"io"
 	"log"
 	"net/http"
+	"strings"
 )
+
+var tasks = []string{}
 
 func main() {
 
 	http.HandleFunc("/add", corsHandler(add))
-	http.HandleFunc("/edit", corsHandler(edit))
-	http.HandleFunc("/delete", corsHandler(delete))
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
@@ -33,32 +35,33 @@ func corsHandler(next http.HandlerFunc) http.HandlerFunc {
 }
 
 func add(w http.ResponseWriter, req *http.Request) {
-	t, err := template.ParseFiles("templates/add.html")
-	if err != nil {
-		http.Error(w, "Something went wrong while fetching error template", http.StatusInternalServerError)
-		log.Fatal(err)
+	if req.Method != http.MethodPost {
+		http.Error(w, "Method not supported", http.StatusMethodNotAllowed)
 		return
 	}
 
-	t.Execute(w, nil)
-}
+	body, err := io.ReadAll(req.Body)
 
-func edit(w http.ResponseWriter, req *http.Request) {
-	t, err := template.ParseFiles("templates/edit.html")
 	if err != nil {
-		http.Error(w, "Something went wrong", http.StatusInternalServerError)
-		log.Fatal(err)
-		return
+		http.Error(w, "Could not extract payload from request", http.StatusInternalServerError)
+		log.Panic(err)
 	}
-	t.Execute(w, nil)
-}
 
-func delete(w http.ResponseWriter, req *http.Request) {
-	t, err := template.ParseFiles("templates/remove.html")
-	if err != nil {
-		http.Error(w, "Something went wrong", http.StatusInternalServerError)
-		log.Fatal(err)
-		return
+	defer req.Body.Close()
+
+	tasks = append(tasks, strings.Split(string(body), "=")[1])
+
+	t := ""
+
+	for _, task := range tasks {
+		t = t + "<li>" + task + "</li>"
 	}
-	t.Execute(w, nil)
+
+	tmp, err := template.New("tasks").Parse(t)
+	if err != nil {
+		log.Panic(err)
+	}
+
+	tmp.Execute(w, nil)
+
 }
