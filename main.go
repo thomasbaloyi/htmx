@@ -5,10 +5,18 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
-var tasks = []string{}
+var COUNT = 1
+
+type Task struct {
+	Id          int
+	Description string
+}
+
+var tasks = []Task{}
 
 func main() {
 
@@ -49,12 +57,13 @@ func add(w http.ResponseWriter, req *http.Request) {
 
 	defer req.Body.Close()
 
-	tasks = append(tasks, strings.Split(string(body), "=")[1])
+	tasks = append(tasks, Task{Id: COUNT, Description: strings.Split(string(body), "=")[1]})
+	COUNT++
 
 	t := ""
 
 	for _, task := range tasks {
-		t = t + "<li>" + task + "</li>"
+		t = t + "<li>" + strconv.Itoa(task.Id) + " - " + task.Description + "</li>"
 	}
 
 	tmp, err := template.New("tasks").Parse(t)
