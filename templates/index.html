@@ -14,8 +14,8 @@
 <body>
     <menu>
         <button hx-get="http://localhost:8080/add" hx-target="#content" hx-swap="innerHTML">Add</button>
-        <button hx-get="http://localhost:8080/edit">Edit</button>
-        <button hx-get="http://localhost:8080/delete">Delete</button>
+        <button hx-get="http://localhost:8080/edit" hx-target="#content" hx-swap="innerHTML">Edit</button>
+        <button hx-get="http://localhost:8080/delete" hx-target="#content" hx-swap="innerHTML">Delete</button>
     </menu>
     
     <section id="content"></section>

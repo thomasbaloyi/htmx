@@ -25,8 +25,8 @@ func root(next http.HandlerFunc) http.HandlerFunc {
 func main() {
 
 	http.HandleFunc("/add", root(add))
-	http.HandleFunc("/edit", root(add))
-	http.HandleFunc("/delete", root(add))
+	http.HandleFunc("/edit", root(edit))
+	http.HandleFunc("/delete", root(delete))
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
