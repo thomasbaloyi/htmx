@@ -1,5 +1,6 @@
 html, body {
     background-color: antiquewhite;
+    font-family: 'Noto Sans Old Permic', sans-serif;
 }
 
 button {
@@ -12,4 +13,33 @@ button {
 button:hover {
     background-color: lightgray;
     cursor: pointer;
+}
+
+form {
+    border: 2px solid brown;
+    padding: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    border-radius: 4px;
+}
+
+input {
+    height: 2rem;
+    background-color: antiquewhite;
+    border-radius: 4px;
+    color: brown;
+    font-weight: 700;
+    font-size: large;
+}
+
+#tasks {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    border: 2px solid brown;
+    padding: 4rem;
+    border-radius: 4px;
+    font-style: italic;
 }
