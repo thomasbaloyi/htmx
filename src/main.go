@@ -20,14 +20,31 @@ var tasks = []Task{}
 
 func main() {
 
+	fs := http.FileServer(http.Dir("css"))
+	http.Handle("/css/", http.StripPrefix("/css/", fs))
+
+	http.HandleFunc("/", corsHandler(rootHandler))
 	http.HandleFunc("/add", corsHandler(add))
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
 }
 
+func rootHandler(w http.ResponseWriter, r *http.Request) {
+	t, err := template.ParseFiles("index.html")
+
+	if err != nil {
+		log.Panic(err)
+		http.Error(w, "Something went wrong generating response.", http.StatusInternalServerError)
+	}
+
+	t.Execute(w, nil)
+}
+
 func corsHandler(next http.HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+		log.Println(r.Method, r.URL, r.RemoteAddr)
 
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Headers", "hx-request, hx-target, hx-current-url")
@@ -63,7 +80,7 @@ func add(w http.ResponseWriter, req *http.Request) {
 	t := ""
 
 	for _, task := range tasks {
-		t = t + "<li>" + strconv.Itoa(task.Id) + " - " + task.Description + "</li>"
+		t = t + "<li>" + strconv.Itoa(task.Id) + " - " + task.Description + "</li>\n"
 	}
 
 	tmp, err := template.New("tasks").Parse(t)
