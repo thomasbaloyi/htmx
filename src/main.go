@@ -74,7 +74,15 @@ func add(w http.ResponseWriter, req *http.Request) {
 
 	defer req.Body.Close()
 
-	tasks = append(tasks, Task{Id: COUNT, Description: strings.Split(string(body), "=")[1]})
+	description := strings.Split(string(body), "=")[1]
+
+	if len(description) == 0 {
+		w.Header().Set("Access-Control-Allow-Headers", "HX-Retarget")
+		http.Error(w, "No description.", http.StatusPreconditionFailed)
+		return
+	}
+
+	tasks = append(tasks, Task{Id: COUNT, Description: description})
 	COUNT++
 
 	t := ""
