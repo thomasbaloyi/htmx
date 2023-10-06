@@ -30,7 +30,10 @@ tr {
     border-bottom: 1px solid black;
 }
 
-tr:hover {background-color: #D6EEEE;}
+tr:hover {
+    background-color: #D6EEEE;
+    cursor: pointer;
+}
 
 td,
 th {

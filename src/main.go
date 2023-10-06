@@ -4,7 +4,6 @@ import (
 	"html/template"
 	"io"
 	"log"
-	"math"
 	"net/http"
 	"strings"
 )
@@ -92,13 +91,4 @@ func add(w http.ResponseWriter, req *http.Request) {
 
 	tmp.Execute(w, tasks)
 
-}
-
-func page(tasks []Task, pageSize int, page int) ([]Task, int) {
-	result := float64(len(tasks)) / float64(pageSize)
-	numberOfPages := math.Round(result)
-
-	// TODO: slice a slice, // DOING: knocking off
-
-	return tasks, int(numberOfPages)
 }
