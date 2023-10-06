@@ -4,8 +4,8 @@ import (
 	"html/template"
 	"io"
 	"log"
+	"math"
 	"net/http"
-	"strconv"
 	"strings"
 )
 
@@ -85,17 +85,20 @@ func add(w http.ResponseWriter, req *http.Request) {
 	tasks = append(tasks, Task{Id: COUNT, Description: description})
 	COUNT++
 
-	t := ""
-
-	for _, task := range tasks {
-		t = t + "<li>" + strconv.Itoa(task.Id) + " - " + task.Description + "</li>\n"
-	}
-
-	tmp, err := template.New("tasks").Parse(t)
+	tmp, err := template.ParseFiles("templates/list.html")
 	if err != nil {
 		log.Panic(err)
 	}
 
-	tmp.Execute(w, nil)
+	tmp.Execute(w, tasks)
 
+}
+
+func page(tasks []Task, pageSize int, page int) ([]Task, int) {
+	result := float64(len(tasks)) / float64(pageSize)
+	numberOfPages := math.Round(result)
+
+	// TODO: slice a slice, // DOING: knocking off
+
+	return tasks, int(numberOfPages)
 }

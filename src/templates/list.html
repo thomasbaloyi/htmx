@@ -1,0 +1,19 @@
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+
+    {{range .}}
+    <tr>        
+        <td>{{.Id}}</td>
+        <td>{{.Description}}</td>
+        <td>
+            <button>Edit</button>
+            <button>Details</button>
+            <button>Delete</button>
+        </td>
+    </tr>
+    {{end}}
+</table>

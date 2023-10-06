@@ -1,5 +1,6 @@
-html, body {
-    background-color: #bde0fe;
+html,
+body {
+    background-color: whitesmoke;
     font-family: 'Noto Sans Old Permic', sans-serif;
     color: #023047;
 }
@@ -15,4 +16,24 @@ button {
 button:hover {
     background-color: #ffafcc;
     cursor: pointer;
+}
+
+th {
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    border-bottom: 1px solid black;
+}
+
+tr:hover {background-color: #D6EEEE;}
+
+td,
+th {
+    text-align: center;
+    width: 1fr;
 }
