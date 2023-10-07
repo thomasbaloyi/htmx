@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"time"
 )
 
 var COUNT = 1
@@ -13,6 +14,7 @@ var COUNT = 1
 type Task struct {
 	Id          int
 	Description string
+	CreatedAt   time.Time
 }
 
 var tasks = []Task{}
@@ -81,7 +83,7 @@ func add(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	tasks = append(tasks, Task{Id: COUNT, Description: description})
+	tasks = append(tasks, Task{Id: COUNT, Description: description, CreatedAt: time.Now()})
 	COUNT++
 
 	tmp, err := template.ParseFiles("templates/list.html")
