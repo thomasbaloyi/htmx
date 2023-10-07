@@ -29,6 +29,8 @@ func main() {
 
 	http.HandleFunc("/", corsHandler(rootHandler))
 	http.HandleFunc("/add", corsHandler(add))
+	http.HandleFunc("/tasks", corsHandler(taskHandler))
+	http.HandleFunc("/home", corsHandler(homeHandler))
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
@@ -63,7 +65,34 @@ func corsHandler(next http.HandlerFunc) http.HandlerFunc {
 	})
 }
 
+func taskHandler(w http.ResponseWriter, req *http.Request) {
+	tmp, err := template.ParseFiles("templates/list.html")
+	if err != nil {
+		log.Panic(err)
+	}
+
+	tmp.Execute(w, nil)
+}
+
+func homeHandler(w http.ResponseWriter, req *http.Request) {
+	tmp, err := template.ParseFiles("templates/home.html")
+	if err != nil {
+		log.Panic(err)
+	}
+
+	tmp.Execute(w, nil)
+}
+
 func add(w http.ResponseWriter, req *http.Request) {
+	tmp, err := template.ParseFiles("templates/add.html")
+	if err != nil {
+		log.Panic(err)
+	}
+
+	tmp.Execute(w, nil)
+}
+
+func addTask(w http.ResponseWriter, req *http.Request) {
 	if req.Method != http.MethodPost {
 		http.Error(w, "Method not supported", http.StatusMethodNotAllowed)
 		return
