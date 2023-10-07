@@ -15,15 +15,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Old+Permic&display=swap" rel="stylesheet">
 </head>
 
-<body>    
-    <section id="content">
+<body>
+    <section id="toolbar">
+        <img src="/src/assets/htmx-logo.jpg" alt="HTMX Logo">
+        <menu type="toolbar">
+            <button>Home </button>
+            <button>Tasks</button>
+        </menu>
+    </section>
+
+    <main></main>
+
+    <footer>
+        htmx - high power tools for html, used by Thomas Baloyi
+    </footer>
+
+    <!-- <section id="content">
         <h3>What do you want to do?</h3>
         <form hx-post="/add" hx-target="#tasks" hx-swap="innerHTML">
             <input type="text" name="task" id="">
             <button type="submit">Add</button>
         </form>
     </section>
-    <section id="tasks"></section>
+    <section id="tasks"></section> -->
 </body>
 
 </html>

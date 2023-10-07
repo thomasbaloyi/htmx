@@ -3,6 +3,15 @@ body {
     background-color: whitesmoke;
     font-family: 'Noto Sans Old Permic', sans-serif;
     color: #023047;
+    margin: 0;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    box-sizing: border-box;
 }
 
 button {
@@ -39,4 +48,14 @@ td,
 th {
     text-align: center;
     width: 1fr;
+}
+
+#toolbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+main {
+    flex: 1;
 }
