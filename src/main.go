@@ -24,6 +24,9 @@ func main() {
 	fs := http.FileServer(http.Dir("css"))
 	http.Handle("/css/", http.StripPrefix("/css/", fs))
 
+	fsImages := http.FileServer(http.Dir("images"))
+	http.Handle("/images/", http.StripPrefix("/images/", fsImages))
+
 	http.HandleFunc("/", corsHandler(rootHandler))
 	http.HandleFunc("/add", corsHandler(add))
 

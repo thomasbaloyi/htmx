@@ -59,3 +59,8 @@ th {
 main {
     flex: 1;
 }
+
+#logo {
+    height: 4rem;
+    border-radius: 8px;
+}
