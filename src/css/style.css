@@ -70,3 +70,9 @@ main {
     flex-direction: column;
     text-align: center;
 }
+
+form {
+    padding: 1rem;
+    border: 1px solid #ffafcc;
+    border-radius: 4px;
+}

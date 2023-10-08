@@ -1,25 +1,27 @@
-<section hx-get="/add" hx-trigger="load">
+<section hx-target="this">
+    <button hx-trigger="click" hx-get="/add" hx-swap="outerHtml">
+        Create new task
+    </button>
 
+    <table style="margin-top: 1rem;" class="table">
+        <tr>
+            <th>Id</th>
+            <th>Description</th>
+            <th>Date created</th>
+            <th>Actions</th>
+        </tr>
+
+        {{range .}}
+        <tr>
+            <td>{{.Id}}</td>
+            <td>{{.Description}}</td>
+            <td>{{.CreatedAt}}</td>
+            <td>
+                <button>Edit</button>
+                <button>Details</button>
+                <button>Delete</button>
+            </td>
+        </tr>
+        {{end}}
+    </table>
 </section>
-
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Description</th>
-        <th>Date created</th>
-        <th>Actions</th>
-    </tr>
-
-    {{range .}}
-    <tr>        
-        <td>{{.Id}}</td>
-        <td>{{.Description}}</td>
-        <td>{{.CreatedAt}}</td>
-        <td>
-            <button>Edit</button>
-            <button>Details</button>
-            <button>Delete</button>
-        </td>
-    </tr>
-    {{end}}
-</table>

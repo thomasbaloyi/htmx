@@ -31,6 +31,7 @@ func main() {
 	http.HandleFunc("/add", corsHandler(add))
 	http.HandleFunc("/tasks", corsHandler(taskHandler))
 	http.HandleFunc("/home", corsHandler(homeHandler))
+	http.HandleFunc("/task/add", corsHandler(addHandler))
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
@@ -92,7 +93,7 @@ func add(w http.ResponseWriter, req *http.Request) {
 	tmp.Execute(w, nil)
 }
 
-func addTask(w http.ResponseWriter, req *http.Request) {
+func addHandler(w http.ResponseWriter, req *http.Request) {
 	if req.Method != http.MethodPost {
 		http.Error(w, "Method not supported", http.StatusMethodNotAllowed)
 		return
