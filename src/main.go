@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 )
@@ -32,6 +33,7 @@ func main() {
 	http.HandleFunc("/tasks", corsHandler(taskHandler))
 	http.HandleFunc("/home", corsHandler(homeHandler))
 	http.HandleFunc("/task/add", corsHandler(addHandler))
+	http.HandleFunc("/update", corsHandler(editHandler))
 
 	log.Fatal(http.ListenAndServe(":8080", nil))
 
@@ -114,6 +116,11 @@ func addHandler(w http.ResponseWriter, req *http.Request) {
 		w.Header().Set("Access-Control-Allow-Headers", "HX-Retarget")
 		http.Error(w, "No description.", http.StatusPreconditionFailed)
 		return
+	} else {
+		description, err = url.QueryUnescape(description)
+		if err != nil {
+			log.Panic(err)
+		}
 	}
 
 	tasks = append(tasks, Task{Id: COUNT, Description: description, CreatedAt: time.Now()})
@@ -126,4 +133,13 @@ func addHandler(w http.ResponseWriter, req *http.Request) {
 
 	tmp.Execute(w, tasks)
 
+}
+
+func editHandler(w http.ResponseWriter, r *http.Request) {
+	tmp, err := template.ParseFiles("templates/edit.html")
+	if err != nil {
+		log.Panic(err)
+	}
+
+	tmp.Execute(w, nil)
 }
