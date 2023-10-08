@@ -15,7 +15,7 @@ var COUNT = 1
 type Task struct {
 	Id          int
 	Description string
-	CreatedAt   time.Time
+	CreatedAt   string
 }
 
 var tasks = []Task{}
@@ -123,7 +123,7 @@ func addHandler(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	tasks = append(tasks, Task{Id: COUNT, Description: description, CreatedAt: time.Now()})
+	tasks = append(tasks, Task{Id: COUNT, Description: description, CreatedAt: time.Now().Format("2006-01-02 15:04")})
 	COUNT++
 
 	tmp, err := template.ParseFiles("templates/list.html")
