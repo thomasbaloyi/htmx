@@ -9,6 +9,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"example.com/htmx/database"
 )
 
 var COUNT = 1
@@ -22,6 +24,14 @@ type Task struct {
 var tasks = []Task{}
 
 func main() {
+
+	isDbFileCreated := database.CreateDbFile()
+
+	if isDbFileCreated {
+		log.Printf("DB file created successfully, application starting...")
+	} else {
+		log.Panic("Failed to create database file")
+	}
 
 	fs := http.FileServer(http.Dir("css"))
 	http.Handle("/css/", http.StripPrefix("/css/", fs))
