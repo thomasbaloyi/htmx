@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -136,10 +137,21 @@ func addHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func editHandler(w http.ResponseWriter, r *http.Request) {
+
+	id, err := strconv.Atoi(r.URL.Query().Get("Id"))
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	id = id - 1
+
+	task := tasks[id]
+
 	tmp, err := template.ParseFiles("templates/edit.html")
 	if err != nil {
 		log.Panic(err)
 	}
 
-	tmp.Execute(w, nil)
+	tmp.Execute(w, task)
 }

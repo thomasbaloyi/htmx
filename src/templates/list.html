@@ -17,9 +17,9 @@
             <td>{{.Description}}</td>
             <td>{{.CreatedAt}}</td>
             <td>
-                <button>Edit</button>
-                <button>Details</button>
-                <button>Delete</button>
+                <button hx-get="/update?Id={{.Id}}">Edit</button>
+                <button hx-get="/task/{{.Id}}">Details</button>
+                <button hx-get="/remove/{{.Id}}">Delete</button>
             </td>
         </tr>
         {{end}}

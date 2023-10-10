@@ -1,7 +1,8 @@
-<!-- <section hx-target="this">
+<section hx-target="this">
     <form hx-post="/task/edit" hx-swap="outerHTML">
-        <input type="text" >
-        <input type="text" name="task" id="">
+        <input type="number" value="{{.Id}}">
+        <input type="date" name="" id="" value="{{.CreatedAt}}">
+        <input type="text" name="task" id="" value="{{.Description}}">
         <button type="submit">Update</button>
     </form>
-</section> -->
+</section>
