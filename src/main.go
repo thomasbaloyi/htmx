@@ -150,6 +150,12 @@ func addHandler(w http.ResponseWriter, req *http.Request) {
 		log.Panic(err)
 	}
 
+	tasks, err := database.ReadFromDbFile()
+
+	if err != nil {
+		log.Panic(err)
+	}
+
 	tmp.Execute(w, tasks)
 
 }
