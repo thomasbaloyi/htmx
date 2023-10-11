@@ -130,6 +130,12 @@ func addHandler(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 
+	err = database.WriteToDbFile(model.Task{Id: COUNT, Description: description, CreatedAt: time.Now().Format("2006-01-02 15:04")})
+
+	if err != nil {
+		log.Panic("Failed to write task to db file", err)
+	}
+
 	tasks = append(tasks, model.Task{Id: COUNT, Description: description, CreatedAt: time.Now().Format("2006-01-02 15:04")})
 	COUNT++
 
