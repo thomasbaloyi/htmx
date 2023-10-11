@@ -81,7 +81,13 @@ func taskHandler(w http.ResponseWriter, req *http.Request) {
 		log.Panic(err)
 	}
 
-	tmp.Execute(w, nil)
+	tasks, err := database.ReadFromDbFile()
+
+	if err != nil {
+		log.Panic(err)
+	}
+
+	tmp.Execute(w, tasks)
 }
 
 func homeHandler(w http.ResponseWriter, req *http.Request) {
