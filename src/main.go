@@ -11,17 +11,13 @@ import (
 	"time"
 
 	"example.com/htmx/database"
+
+	"example.com/htmx/model"
 )
 
 var COUNT = 1
 
-type Task struct {
-	Id          int
-	Description string
-	CreatedAt   string
-}
-
-var tasks = []Task{}
+var tasks = []model.Task{}
 
 func main() {
 
@@ -134,7 +130,7 @@ func addHandler(w http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	tasks = append(tasks, Task{Id: COUNT, Description: description, CreatedAt: time.Now().Format("2006-01-02 15:04")})
+	tasks = append(tasks, model.Task{Id: COUNT, Description: description, CreatedAt: time.Now().Format("2006-01-02 15:04")})
 	COUNT++
 
 	tmp, err := template.ParseFiles("templates/list.html")
